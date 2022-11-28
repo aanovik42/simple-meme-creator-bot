@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: .
+    restart: on-failure
+    env_file: ./.env
+    ports:
+      - '8081:8081'
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "bot.username"  : "$BOT_USERNAME",
+        "bot.token" : "$BOT_TOKEN",
+        "api.url" : "$API_URL"
+      }'
+      JDK_JAVA_OPTIONS: '-Xmx128M'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
